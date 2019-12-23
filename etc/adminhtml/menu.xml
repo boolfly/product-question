@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Boolfly_ProductQuestion::product_question" title="Product Questions" module="Boolfly_ProductQuestion" sortOrder="66" parent="Magento_Catalog::catalog"
+             resource="Magento_Catalog::question_elements"/>
+        <add id="Boolfly_ProductQuestion::question" title="Questions" module="Boolfly_ProductQuestion" sortOrder="30" parent="Boolfly_ProductQuestion::product_question" action="bf_question/question/index" resource="Magento_Catalog::question_elements"/>
+    </menu>
+</config>

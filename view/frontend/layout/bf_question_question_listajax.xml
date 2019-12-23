@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root">
+        <block class="Boolfly\ProductQuestion\Block\Product\View\QuestionList" name="product.info.question" as="product_info_question" template="Boolfly_ProductQuestion::product/view/question_list.phtml"/>
+        <block class="Magento\Theme\Block\Html\Pager" name="product_question_list.toolbar">
+            <arguments>
+                <argument name="show_per_page" xsi:type="boolean">false</argument>
+                <argument name="show_amounts" xsi:type="boolean">false</argument>
+            </arguments>
+        </block>
+    </container>
+</layout>

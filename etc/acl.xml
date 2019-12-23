@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Catalog::catalog">
+                    <resource id="Magento_Catalog::catalog_inventory">
+                        <resource id="Magento_Catalog::question_elements" title="Product Question">
+                            <resource id="Boolfly_ProductQuestion::question_edit" title="Edit Question" sortOrder="10" />
+                            <resource id="Boolfly_ProductQuestion::question_save" title="Save Question" sortOrder="20" />
+                            <resource id="Boolfly_ProductQuestion::question_delete" title="Delete Question" sortOrder="30" />
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Boolfly_ProductQuestion::config" title="Boolfly Product Question Section"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

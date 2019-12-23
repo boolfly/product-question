@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Boolfly\ProductQuestion\Api\Data\QuestionInterface"
+                type="Boolfly\ProductQuestion\Model\Question"/>
+    <virtualType name="BoolflyQuestionGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Boolfly\ProductQuestion\Model\ResourceModel\Question\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">BoolflyQuestionGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="BoolflyQuestionGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="boolfly_question_listing_data_source" xsi:type="string">Boolfly\ProductQuestion\Model\ResourceModel\Question\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Boolfly\ProductQuestion\Model\ResourceModel\Question\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">bf_question</argument>
+            <argument name="eventPrefix" xsi:type="string">boolfly_question_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">boolflyquestion_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Boolfly\ProductQuestion\Model\ResourceModel\Question</argument>
+        </arguments>
+    </type>
+    <type name="Boolfly\ProductQuestion\Block\Product\View\Question">
+        <arguments>
+            <argument name="templateProcessor" xsi:type="object">Magento\Widget\Model\Template\Filter</argument>
+        </arguments>
+    </type>
+</config>

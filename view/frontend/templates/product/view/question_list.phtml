@@ -1,0 +1,108 @@
+<?php
+/**
+ * @var \Boolfly\ProductQuestion\Block\Product\View\QuestionList $block
+ */
+$items = $block->getCollection();
+?>
+<div class="block question-list" id="customer-question">
+    <div class="page-title-wrapper">
+        <strong><?= $block->escapeHtml(__('Customer Questions')) ?></strong>
+    </div>
+    <?php if (!$block->isLoggedIn()): ?>
+        <div data-bind="scope: 'reply-form'" class="login-ask-question"><a data-bind="attr: { href: loginUrl() }" ><?= __('Login to ask a question'); ?></a></div>
+    <?php else: ?>
+        <div class="question-form">
+            <div class="asked-question">
+                <form action="<?= $block->getSubmitUrl(); ?>" method="post" class="question_form">
+                    <div class="field required">
+                        <label for="question-title"><?= __('Title'); ?> </label>
+                        <div class="control">
+                            <input type="text" maxlength="255" data-validate="{required:true}" class="form-control" rows="5" id="question-title" name="title" placeholder="<?= __('Please enter title for question') ?>"/>
+                        </div>
+                        <label for="question-content"><?= __('Content'); ?> </label>
+                        <div class="control">
+                            <textarea  data-validate="{required:true}" class="form-control" rows="5" id="question-content" name="content" placeholder="<?= __('Please enter content for question') ?>"></textarea>
+                        </div>
+                    </div>
+                    <div class="field required">
+                        <input type="hidden" class="form-control" id="product_id" value="<?= $block->getCurrentProduct()->getId()?>" name="product_id">
+                    </div>
+                    <button type="submit" class="btn btn-default"><?= __('Submit'); ?></button>
+                </form>
+            </div>
+        </div>
+    <?php endif; ?>
+    <?php if ($items->getSize()): ?>
+        <div class="block-content">
+            <ul class="items question-items">
+                <?php foreach ($items as $item):?>
+                    <li class="item question-item">
+                        <div class="qdetail">
+                            <div class="qauthor">
+                                <p>
+                                    <strong><?= $block->escapeHtml($item->getAuthorName()) ?></strong>
+                                    <?= /* @escapeNotVerified */ $block->getDateFormat($item->getCreationTime()) ?>
+                                </p>
+                            </div>
+                            <div class="qtitle">
+                                <strong><?= $block->escapeHtml($item->getTitle()); ?></strong>
+                            </div>
+                            <div class="qcontent">
+                                <?= $block->escapeHtml($item->getContent()); ?>
+                            </div>
+                        </div>
+                        <div id="reply-<?= $item->getId(); ?>" data-bind="scope: 'reply-form'" >
+                            <!-- ko if: customer().fullname  -->
+                                <div><a class="btn btn-primary reply-link" data-id="<?= $item->getId(); ?>" data-product-id="<?= $block->getCurrentProduct()->getId(); ?>"
+                                        data-bind="click: generateForm"><?= __('Reply')?></a></div>
+                                <div class="reply-form" id="reply-form-<?= $item->getId();?>"></div>
+                            <!-- /ko -->
+                        </div>
+                        <?php if ($block->getAnswers($item->getId())->count()): ?>
+                            <ul class="items question-answers">
+                                <?php foreach ($block->getAnswers($item->getId()) as $answer):?>
+                                    <li class="item question-answer">
+                                        <div class="qauthor">
+                                            <p>
+                                                <strong><?= $block->escapeHtml($answer->getAuthorName()) ?></strong>
+                                                <?= /* @escapeNotVerified */ $block->getDateFormat($answer->getCreationTime()) ?>
+                                            </p>
+                                        </div>
+                                        <div class="rcontent"><?= $block->escapeHtml($answer->getContent()) ?></div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif;?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <div class="toolbar question-toolbar">
+                <?= $block->getChildHtml('toolbar') ?>
+            </div>
+        </div>
+    <?php endif;?>
+</div>
+
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "reply-form": {
+                            "component": "Boolfly_ProductQuestion/js/reply-form",
+                                "config": {
+                                    "postUrl": "<?= $block->getSubmitUrl(); ?>"
+                                }
+                        }
+                    }
+                }
+            }
+        }
+</script>
+<script type="text/x-magento-init">
+    {
+        ".question_form": {
+            "validation": {}
+        }
+    }
+</script>

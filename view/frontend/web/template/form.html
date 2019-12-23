@@ -1,0 +1,13 @@
+<form action="<%- data.action %>" method="post" class="question-form" data-mage-init='{"validation":{}}'>
+    <input type="hidden" name="form_key" value="<%- data.formKey %>">
+    <div class="form-group">
+        <textarea data-validate="{required:true}" class="form-control" rows="2" name="content" placeholder="<%- data.replyPlaceHolderText %>"></textarea>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" value="<%- data.questionId %>" name="parent_id">
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" value="<%- data.productId %>" name="product_id">
+    </div>
+    <button type="submit" class="btn btn-default"><span><%= data.authorSubmitText %></span></button>
+</form>

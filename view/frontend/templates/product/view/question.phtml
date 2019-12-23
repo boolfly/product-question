@@ -1,0 +1,22 @@
+<?php
+/** @var \Boolfly\ProductQuestion\Block\Product\View\Question $block */
+?>
+<div id="product-question-container" data-role="product-question"></div>
+<?= $block->getChildHtml(); ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Boolfly_ProductQuestion/js/process-question": {
+                "productQuestionUrl": "<?= $block->escapeJs($block->escapeUrl($block->getProductQuestionUrl())) ?>"
+            }
+        }
+    }
+</script>
+<script>
+    require([
+        'mage/url',
+    ], function(url) {
+        return url.setBaseUrl('<?= /* @escapeNotVerified */ $block->getBaseUrl() ?>');
+    });
+    window.base64CurrentUrl = '<?= /* @escapeNotVerified */ $block->getBase64CurrentUrl(); ?>'
+</script>

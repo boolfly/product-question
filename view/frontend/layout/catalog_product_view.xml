@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.details" >
+            <block class="Boolfly\ProductQuestion\Block\Product\View\Question" template="Boolfly_ProductQuestion::product/view/question.phtml" name="bf_question" as="bf_question" group="detailed_info" after="-" ifconfig="question_setting/general/enable">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Question</argument>
+                    <argument name="sort_order" xsi:type="string">18</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,52 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var \Boolfly\ProductQuestion\Block\Customer\QuestionList $block */
+$questions = $block->getQuestions();
+?>
+<?php if ($questions && count($questions)): ?>
+    <div class="table-wrapper questions">
+        <table class="data table table-reviews" id="my-questions-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Product Question')) ?></caption>
+            <thead>
+            <tr>
+                <th scope="col" class="col summary"><?= $block->escapeHtml(__('Title')) ?></th>
+                <th scope="col" class="col summary"><?= $block->escapeHtml(__('Content')) ?></th>
+                <th scope="col" class="col date"><?= $block->escapeHtml(__('Created')) ?></th>
+                <th scope="col" class="col item"><?= $block->escapeHtml(__('Product Name')) ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($questions as $question): ?>
+                <tr>
+                    <td data-th="<?= $block->escapeHtml(__('Title')) ?>" class="col title"><?= $block->escapeHtml($question->getTitle()) ?></td>
+                    <td data-th="<?= $block->escapeHtml(__('Content')) ?>" class="col content"><?= $block->escapeHtml($question->getShortContent()) ?></td>
+                    <td data-th="<?= $block->escapeHtml(__('Created')) ?>" class="col date"><?= /* @escapeNotVerified */ $block->getDateFormat($question->getCreationTime()) ?></td>
+                    <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>" class="col item">
+                        <?php if ($block->getProductInfo($question)) : ?>
+                            <?php $info = $block->getProductInfo($question)?>
+                            <strong class="product-name">
+                                <a href="<?= $block->escapeUrl($info->getUrl()) ?>"><?= $block->escapeHtml($info->getName()) ?></a>
+                            </strong>
+                            <br/>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getToolbarHtml()): ?>
+        <div class="toolbar products-question-toolbar bottom">
+            <?= $block->getToolbarHtml() ?>
+        </div>
+    <?php endif; ?>
+<?php else: ?>
+    <div class="message info empty"><span><?= $block->escapeHtml(__('You have submitted no question.')) ?></span></div>
+<?php endif; ?>
+<div class="actions-toolbar">
+    <div class="secondary">
+        <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>">
+            <span><?= $block->escapeHtml(__('Back')) ?></span>
+        </a>
+    </div>
+</div>
